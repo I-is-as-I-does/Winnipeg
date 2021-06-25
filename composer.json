@@ -1,0 +1,23 @@
+{
+    "name": "ssitu/winnipeg",
+    "description": "Itsy-bitsy honey pot utility.",
+    "type": "library",
+    "keywords" :["php", "html", "form","honeypot"],
+    "homepage":"https://github.com/I-is-as-I-does/Winnipeg",
+    "license": "MIT",
+    "readme":"README.md",
+    "authors": [
+        {
+            "name": "I-is-as-I-does",
+            "email": "66915011+I-is-as-I-does@users.noreply.github.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": { },
+   
+    "autoload": {
+        "psr-4": {
+            "SSITU\\Winnipeg\\": "src"
+        }
+    }
+}
