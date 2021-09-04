@@ -2,10 +2,14 @@
 /* This file is part of Winnipeg | SSITU | (c) 2021 I-is-as-I-does */
 namespace SSITU\Winnipeg;
 
-class Winnipeg implements Winnipeg_i
+use \SSITU\Blueprints\Log;
+
+class Winnipeg implements Log\FlexLogsInterface
+
 {
 
-    private $collect = [];
+    use Log\FlexLogsTrait;
+
     private $fieldId = 'stuffandfluff';
 
     public function __construct($fieldId = null)
@@ -50,14 +54,13 @@ class Winnipeg implements Winnipeg_i
 }';
     }
 
-    public function checkHoneyPot($fieldId = null)
+    public function honeyPotIsEmpty($fieldId = null)
     {
         if (is_null($fieldId)) {
             $fieldId = $this->fieldId;
         }
         if (!empty($_POST[$fieldId]) || !empty($_GET[$fieldId])) {
-            $stock = [];
-            $this->collect[] = [
+            $this->log('alert', 'Winnipeg.honey-pot-not-empty', [
                 'field' => $fieldId,
                 'timestamp' => date('c'),
                 'get' => $_GET,
@@ -65,14 +68,10 @@ class Winnipeg implements Winnipeg_i
                 'session' => $_SESSION,
                 'ip' => $_SERVER['REMOTE_ADDR'],
                 'url' => htmlspecialchars("//{$_SERVER['SERVER_NAME']}{$_SERVER['REQUEST_URI']}", ENT_QUOTES, 'UTF-8'),
-            ];
+            ]);
             return false;
         }
         return true;
     }
 
-    public function getCollectedData()
-    {
-        return $this->collect;
-    }
 }
